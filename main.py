@@ -5,9 +5,9 @@ class WindowMain(Frame):
     def __init__(self, master=None):
         Frame.__init__(self, master)
         self.master = master
-        self.init_window()
+        self.start_screen()
 
-    def init_window(self):
+    def start_screen(self):
         self.master.title("Brane Games")
         self.pack(fill=BOTH, expand=1)
 
@@ -15,18 +15,25 @@ class WindowMain(Frame):
         
         self.showText("Hello everybody. Welcome to Brane Games")
 
-        twoButton = Button(self, text="Continue", command=self.page_2)
-        twoButton.place(relx=0.5, y=35, anchor=CENTER)
+        oneBtn = Button(self, text="Continue", command=self.page_1)
+        oneBtn.place(relx=0.5, y=35, anchor=CENTER)
 
     def showText(self, txt):
         text = Label(self, text=txt)
         text.pack()
+	
+	def showBtn(self, txt, command, x, y):
+		btn = Button(self, text=txt, command=command)
+		if x == True:
+			btn.place(relx=0.5, y=y, anchor=True)
+		else:
+			btn.place(x=x, y=y)
+		return btn
 
     def quitBtn(self):
-        quitButton = Button(self, text="Quit", command=self.client_exit)
-        quitButton.place(x=0, y=0)
+		self.showBtn("Quit", self.quit_app, 0, 0)
 
-    def client_exit(self):
+    def quit_app(self):
         exit()
 
     def killWidgets(self):
@@ -34,7 +41,7 @@ class WindowMain(Frame):
             widget.destroy()
         self.quitBtn()
 
-    def page_2(self):
+    def page_1(self):
         #Clear screen
         self.killWidgets()
         #Text
@@ -43,16 +50,10 @@ class WindowMain(Frame):
         self.showText("Assuming there's no wind and both trains left the station at the same time,")
         self.showText("what is most likely to be yelled by the passengers on train A?")
         #Buttons
-        btnA = Button(self, text="A: All of the above", command=None)
-        btnA.place(relx=0.5, y=100, anchor=CENTER)
-
-        btnB = Button(self, text="B: Help!", command=None)
-        btnB.place(relx=0.5, y=130, anchor=CENTER)
-
-        btnC = Button(self, text="C: Noooo!", command=None)
-        btnC.place(relx=0.5, y=160, anchor=CENTER)
-
-        btnD = Button(self, text="
+        btnA = self.showBtn("A: All of the above", None, True, 100)
+		btnB = self.showBtn("B: Help!", None, True, 130)
+		btnC = self.showBtn("C: Noooo!", None, True, 160)
+		btnD = self.showBtn("D: :(", None, True, 190)
 #Mainloop
 root = Tk()
 root.geometry("600x300")
