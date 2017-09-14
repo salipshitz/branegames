@@ -81,6 +81,6 @@ class WindowMain(Frame):
         
 #Mainloop
 root = Tk()
-root.geometry("600x300")
+root.geometry("800x400")
 app = WindowMain(root)
 root.mainloop()
